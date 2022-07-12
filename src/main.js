@@ -29,11 +29,20 @@ function timeSplitter(time, timesArray) {
   timesArray[3] = time % 60  
 }
 
+function formatDateTimeAttribute(timesArray) {
+  let dateTimeStr = 'P'
+  dateTimeStr += timesArray[0] + 'DT'
+  dateTimeStr += timesArray[1] + 'H'
+  dateTimeStr += timesArray[2] + 'M'
+  dateTimeStr += timesArray[3] + 'S'
+  return dateTimeStr
+}
+
 // newTime is in seconds
-function updateTime(flipCardsArray, newTime, timesArray) {
+function updateTime(flipCardsArray, countdown, newTime, timesArray) {
   let newTimesArray = []
   timeSplitter(newTime, newTimesArray)
-  
+  countdown.setAttribute('datetime', formatDateTimeAttribute(newTimesArray))
   for (let i = 0; i < 4; i++) {
     if (timesArray[i] == newTimesArray[i]) continue
     newTimesArray[i] = (newTimesArray[i] >= 10)
@@ -45,15 +54,16 @@ function updateTime(flipCardsArray, newTime, timesArray) {
 }
 
 let flipCardsArray = document.querySelectorAll('.flip-card')
+let countdown = document.querySelector('.countdown')
 let time = 777341
 let timesArray = []
-updateTime(flipCardsArray, time, timesArray)
+timeSplitter(time, timesArray)
 let id = setInterval( () => {
   time--
   if (time <= 0) {
     time = 0
     clearInterval(id)
   }
-  updateTime(flipCardsArray, time, timesArray)
+  updateTime(flipCardsArray, countdown, time, timesArray)
   
 }, 1000)
