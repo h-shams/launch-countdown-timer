@@ -54,6 +54,7 @@ body {
 .countdown__card-wrapper {
   font-size: 1.75vw;
   font-size: max(0.4rem,1.75vw);
+  margin: 0;
 }
 .countdown__card-desc {
   display: block;
