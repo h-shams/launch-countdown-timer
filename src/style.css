@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
 }
-*, *::after, *::before {
+*, *.flip-card__segment--top, *.flip-card__segment--bottom {
   box-sizing: inherit;
 }
 
@@ -30,6 +30,9 @@ body {
 .inner-container {
   width: 80%;
   flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
 }
 
 .heading {
@@ -41,7 +44,111 @@ body {
 }
 
 .countdown {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 5em 0;
 }
+
+.countdown__card-wrapper {
+  font-size: 1.75vw;
+  font-size: max(0.4rem,1.75vw);
+}
+.countdown__card-desc {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  color: hsl(237, 18%, 59%);
+  letter-spacing: 0.25em;
+}
+
+.flip-card {
+  width: 10em;
+  height: 10em;
+  perspective: 400px;
+  position: relative;
+  flex: 0 0 auto;
+  font-size: 1em; 
+}
+
+/* @media 57em {
+  
+} */
+
+.flip-card__card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  /* transition: 0.5s ease all; */
+  transform-style: preserve-3d;
+  top: 0;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(180deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+.flip-card.flip > .flip-card__card--front {
+  animation: flip 0.4s ease;
+  transform: rotateX(180deg);
+}
+    
+.flip-card__segment {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+  font-size: 5em;
+  backface-visibility: hidden;
+  border-radius: 0.15em;
+  background-color: hsl(236, 21%, 26%);
+  color: hsl(345, 95%, 68%);
+}
+.flip-card__segment--top::after {
+  content: ' ';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.25) , rgba(0,0,0,0.25) 50%,  transparent 50%, transparent);
+}
+
+.flip-card__card .flip-card__segment--top {
+  /* clip-path: path("M 0 72 Q 8 72, 8 80 H 152 Q 152 72, 160 72 V 0 H 0 Z"); */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
+}
+.flip-card__card .flip-card__segment--bottom {
+  /* clip-path: path("M 0 88 Q 8 88, 8 80 H 152 Q 152 88, 160 88 V 160 H 0 Z"); */
+  clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+}
+.flip-card__card--front .flip-card__segment--top {
+  content: attr(data-top);
+  transform: rotateX(180deg);
+}
+.flip-card__card--front .flip-card__segment--bottom {
+  content: attr(data-bottom);
+  /* z-index: 2; */
+}
+.flip-card__card--back .flip-card__segment--top {
+  content: attr(data-top);
+}
+.flip-card__card--back .flip-card__segment--bottom {
+  content: attr(data-bottom);
+}
+
 
 .footer {
   width: 100%;
@@ -77,9 +184,3 @@ body {
 .socials__item {
   margin: 0.5em 1em;
 }
-
-/* heading
-countdown
-footer
-socials
-socials__item */
