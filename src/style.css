@@ -185,3 +185,7 @@ body {
 .socials__item {
   margin: 0.5em 1em;
 }
+
+.socials__link {
+  text-decoration: none;
+}
