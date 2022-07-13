@@ -153,11 +153,9 @@ body {
 }
 
 .flip-card__card .flip-card__segment--top {
-  /* clip-path: path("M 0 72 Q 8 72, 8 80 H 152 Q 152 72, 160 72 V 0 H 0 Z"); */
   clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
 }
 .flip-card__card .flip-card__segment--bottom {
-  /* clip-path: path("M 0 88 Q 8 88, 8 80 H 152 Q 152 88, 160 88 V 160 H 0 Z"); */
   clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
 }
 .flip-card__card--front .flip-card__segment--top {

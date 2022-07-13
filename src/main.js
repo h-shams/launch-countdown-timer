@@ -44,7 +44,48 @@ function updateTime(flipCardsArray, newTime, timesArray) {
   }
 }
 
+function makeClipPath(position, h, w, r) {
+  // h: card height
+  // w: card width
+  // r: hole radius
+  let path
+  if (position == 'top') {
+    path = `path("M 0 ${h/2-r} Q ${r} ${h/2-r}, ${r} ${h/2} H ${w-r} \
+                  Q ${w-r} ${h/2-r}, ${w} ${h/2-r} V 0 H 0 Z")`
+  } else if (position == 'bottom') {
+    path = `path("M 0 ${h/2+r} Q ${r} ${h/2+r}, ${r} ${h/2} H ${w-r} \
+                  Q ${w-r} ${h/2+r}, ${w} ${h/2+r} V ${h} H 0 Z")`
+  }
+  return path
+}
+
+function changeClipPath(flipCard) {
+  let height = flipCard.clientHeight
+  let width = flipCard.clientWidth
+  radius = height / 15
+  let topSegments = flipCard.querySelectorAll('.flip-card__segment--top')
+  let bottomSegments = flipCard.querySelectorAll('.flip-card__segment--bottom')
+  let topSegmentsPath = makeClipPath('top', height, width, radius)
+  let bottomSegmentsPath = makeClipPath('bottom', height, width, radius)
+    
+  for (let i = 0; i < topSegments.length; i++) {
+    topSegments[i].style.clipPath = topSegmentsPath
+  }
+  for (let i = 0; i < bottomSegments.length; i++) {
+    bottomSegments[i].style.clipPath = bottomSegmentsPath
+  }
+}
+
 let flipCardsArray = document.querySelectorAll('.flip-card')
+for (let i = 0; i < flipCardsArray.length; i++) {
+  changeClipPath(flipCardsArray[i])
+}
+addEventListener('resize', () => {
+  for (let i = 0; i < flipCardsArray.length; i++) {
+    changeClipPath(flipCardsArray[i])
+  }
+})
+
 let time = 777341
 let timesArray = []
 updateTime(flipCardsArray, time, timesArray)
