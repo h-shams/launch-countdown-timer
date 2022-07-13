@@ -18,7 +18,8 @@ body {
   min-height: 100vh;
   background-color: hsl(234, 17%, 12%);
   background-image: url("../images/bg-stars.svg");
-  background-size: 250%;
+  background-size: 45em;
+  background-position: center;
   font-family: redhattext;
   font-weight: 700;
   color: #fff;
@@ -29,10 +30,17 @@ body {
 
 .inner-container {
   width: 90%;
+  max-width: 40em;
   flex-grow: 1;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+}
+
+@media (min-width: 30rem) {
+  .inner-container {
+    width: 80%;
+  }
 }
 
 .heading {
@@ -54,17 +62,37 @@ body {
 }
 
 .countdown__card-wrapper {
-  font-size: 1.75vw;
-  font-size: max(0.4rem,1.9vw);
+  font-size: 1.9vw;
+  font-size: clamp(0.4rem,1.9vw, 0.9rem);
 }
+
+@media (min-width: 30rem) {
+  .countdown__card-wrapper {
+    font-size: 1.75vw;
+    font-size: clamp(0.4rem,1.75vw, 0.9rem);
+  }
+}
+
 .countdown__card-desc {
   display: block;
   text-align: center;
   margin: 1em 0;
   text-transform: uppercase;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: hsl(237, 18%, 59%);
-  letter-spacing: 0.25em;
+  letter-spacing: 0.35em;
+}
+
+@media (min-width: 37.5rem) {
+  .countdown__card-desc {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 43rem) {
+  .countdown__card-desc {
+    font-size: 0.9em;
+  }
 }
 
 .flip-card {
@@ -165,8 +193,8 @@ body {
   bottom: 100%;
   background-image: url("../images/pattern-hills.svg");
   background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center bottom;
+  background-repeat: repeat-x;
+  background-position: center top;
 }
 
 .socials {
