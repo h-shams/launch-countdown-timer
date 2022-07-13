@@ -211,5 +211,19 @@ body {
 }
 
 .socials__link {
+  display: flex;
+  justify-content: center;
   text-decoration: none;
+  border-radius: 0.1em;
+  transition: outline 0.1s ease;
+}
+.socials__link path {
+  transition: fill 0.2s ease;
+}
+.socials__link:hover path, .socials__link:focus path {
+  fill: hsl(345, 95%, 68%);
+}
+.socials__link:focus {
+  outline: 0.125em solid hsl(345, 95%, 68%);
+  outline-offset: 0.25em;
 }
