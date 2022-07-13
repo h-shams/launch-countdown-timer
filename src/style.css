@@ -120,6 +120,7 @@ body {
     transform: rotateX(0deg);
   }
 }
+
 .flip-card.flip > .flip-card__card--front {
   animation: flip 0.4s ease;
   transform: rotateX(180deg);
@@ -141,6 +142,10 @@ body {
   background-color: hsl(236, 21%, 26%);
   color: hsl(345, 95%, 68%);
 }
+
+.flip-card__segment--top {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
+}
 .flip-card__segment--top::after {
   content: ' ';
   display: block;
@@ -152,28 +157,13 @@ body {
   background-image: linear-gradient(rgba(0,0,0,0.25) , rgba(0,0,0,0.25) 50%,  transparent 50%, transparent);
 }
 
-.flip-card__card .flip-card__segment--top {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
-}
-.flip-card__card .flip-card__segment--bottom {
+.flip-card__segment--bottom {
   clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
 }
-.flip-card__card--front .flip-card__segment--top {
-  content: attr(data-top);
+.flip-card__card--front > .flip-card__segment--top {
   transform: rotateX(180deg);
   z-index: 3;
 }
-.flip-card__card--front .flip-card__segment--bottom {
-  content: attr(data-bottom);
-  /* z-index: 2; */
-}
-.flip-card__card--back .flip-card__segment--top {
-  content: attr(data-top);
-}
-.flip-card__card--back .flip-card__segment--bottom {
-  content: attr(data-bottom);
-}
-
 
 .footer {
   width: 100%;
