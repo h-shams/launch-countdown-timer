@@ -85,6 +85,21 @@ function changeClipPath(flipCard) {
   }
 }
 
+function timeUntilNextFriday() {
+  let now = new Date()
+  let remainingDays = 5 - now.getDay()
+  remainingDays = remainingDays <= 0 ? remainingDays+7 : remainingDays
+  let nextFriday = new Date( now.getTime()+(24*60*60*1000*remainingDays) )
+  
+  nextFriday.setHours(0)
+  nextFriday.setMinutes(0)
+  nextFriday.setSeconds(0)
+  nextFriday.setMilliseconds(0)
+  
+  let remainingSeconds = Math.floor((nextFriday.getTime()-now.getTime())/1000)
+  return remainingSeconds
+}
+
 let flipCardsArray = document.querySelectorAll('.flip-card')
 for (let i = 0; i < flipCardsArray.length; i++) {
   changeClipPath(flipCardsArray[i])
@@ -94,16 +109,16 @@ addEventListener('resize', () => {
     changeClipPath(flipCardsArray[i])
   }
 })
+
 let countdown = document.querySelector('.countdown')
-let time = 777341
 let timesArray = []
-timeSplitter(time, timesArray)
+let time = timeUntilNextFriday()
+updateTime(flipCardsArray, countdown, time, timesArray)
 let id = setInterval( () => {
   time--
   if (time <= 0) {
     time = 0
     clearInterval(id)
   }
-  updateTime(flipCardsArray, countdown, time, timesArray)
-  
+  updateTime(flipCardsArray, countdown, time, timesArray)  
 }, 1000)
