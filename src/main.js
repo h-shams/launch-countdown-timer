@@ -1,4 +1,4 @@
-function flipTo(flipCard, newValue) {
+function flipTo(flipCard, newValue, options={}) {
   let backTop = flipCard.querySelector(
     '.flip-card__card--back > .flip-card__segment--top')
   let backBottom = flipCard.querySelector(
@@ -14,10 +14,12 @@ function flipTo(flipCard, newValue) {
   frontTop.textContent = oldValue.toString()
   backBottom.textContent = oldValue.toString()
   
-  flipCard.classList.add('flip')
-  setTimeout( () => {
-    flipCard.classList.remove('flip')
-  }, 400)
+  if (!options.noAnimation) {
+    flipCard.classList.add('flip')
+    setTimeout( () => {
+      flipCard.classList.remove('flip')
+    }, 400)
+  }
 }
 
 function timeSplitter(time, timesArray) {
@@ -39,7 +41,7 @@ function formatDateTimeAttribute(timesArray) {
 }
 
 // newTime is in seconds
-function updateTime(flipCardsArray, countdown, newTime, timesArray) {
+function updateTime(flipCardsArray, countdown, newTime, timesArray, options) {
   let newTimesArray = []
   timeSplitter(newTime, newTimesArray)
   countdown.setAttribute('datetime', formatDateTimeAttribute(newTimesArray))
@@ -49,7 +51,7 @@ function updateTime(flipCardsArray, countdown, newTime, timesArray) {
                        ? newTimesArray[i]
                        : '0' + newTimesArray[i]
     timesArray[i] = newTimesArray[i]
-    flipTo(flipCardsArray[i], newTimesArray[i])
+    flipTo(flipCardsArray[i], newTimesArray[i], options)
   }
 }
 
@@ -113,7 +115,7 @@ addEventListener('resize', () => {
 let countdown = document.querySelector('.countdown')
 let timesArray = []
 let time = timeUntilNextFriday()
-updateTime(flipCardsArray, countdown, time, timesArray)
+updateTime(flipCardsArray, countdown, time, timesArray, {noAnimation: true})
 let id = setInterval( () => {
   time--
   if (time <= 0) {
